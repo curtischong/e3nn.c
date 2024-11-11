@@ -1,0 +1,23 @@
+// .vscode/tasks.json
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build C program",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "clebsch_gordan_test.c",
+                "clebsch_gordan.c",
+                "-o",
+                "clebsch_gordan_test",
+                "-g"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}

@@ -4,7 +4,7 @@
 // maximum l value used to precompute Clebsch-Gordan coefficients
 // note that L_MAX / 2 is used for the two input l values
 // this will effect the startup time as the cache is built before main()
-#define L_MAX 14
+#define L_MAX 6
 
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
