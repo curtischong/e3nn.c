@@ -64,12 +64,20 @@ class Layer(flax.linen.Module):
                 positions[graphs.receivers] - positions[graphs.senders],
                 True,
             )
+            print("sender_features.shape")
+            print(sender_features.shape)
             tp = e3nn.tensor_product(sender_features, sh).regroup()
-            messages = e3nn.concatenate([sender_features, tp]).regroup()
+            print("tp.shape") # (50, 1440)
+            print(tp.shape)
+            messages = e3nn.concatenate([sender_features, tp]).regroup() 
+            print("messages.shape") # (50, 1536) - they make no attempt to limit the number of channels of the tensor product
+            print(messages.shape)
             return messages 
 
         def update_node_fn(node_features, _sender_features, receiver_features, _globals):
             node_feats = receiver_features / self.denominator
+            print("node_feats.shape") # (32, 1536)
+            print(node_feats.shape)
             node_feats = e3nn.flax.Linear(target_irreps, name="linear")(node_feats)
             # NOTE: removed scalar activation and extra linear layer for now
             shortcut = e3nn.flax.Linear(
@@ -169,4 +177,5 @@ def train(steps=200):
 
 
 if __name__ == "__main__":
-    train()
+    with jax.disable_jit():
+        train()
